@@ -24,8 +24,8 @@
 #ifndef QUADPACKPP_GAUSS_KRONROD_HPP
 #define QUADPACKPP_GAUSS_KRONROD_HPP
 
+#include <functional>
 #include "machar.hpp"
-#include "function.h"
 
 /** \brief Gauss-Kronrod quadrature rule(s) plus error-estimate data for
  adaptive quadrature routines.
@@ -108,7 +108,7 @@ public:
 	~GaussKronrod();
 
 	//! Approximates \f$\int_a^b f\,dx\f$ using the Gauss-Kronrod rule.
-	void qk(FtnBase<Real>& f, Real a, Real b,
+	void qk(const std::function<Real(Real)>& f, Real a, Real b,
 			  Real& result, Real& abserr, Real& resabs, Real& resasc);
 
 	//! Size of arrays of Gauss-Kronrod abscissae and weights.
@@ -453,7 +453,7 @@ Real GaussKronrod<Real>::rescale_error (Real err, const Real result_abs,
 }
 
 template <class Real>
-void GaussKronrod<Real>::qk(FtnBase<Real>& f, Real a, Real b,
+void GaussKronrod<Real>::qk(const std::function<Real(Real)>& f, Real a, Real b,
 									 Real& result, Real& abserr,
 									 Real& resabs, Real& resasc)
 {

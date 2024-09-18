@@ -53,7 +53,7 @@ public:
 	 </center>
 	 and \a abserr is the internal estimate of the right hand side.
 	 */
-	int qag(FtnBase<Real>& f, Real a, Real b,
+	int qag(const std::function<Real(Real)>& f, Real a, Real b,
 			  Real epsabs, Real epsrel, Real& result, Real& abserr);
 
 private:
@@ -382,7 +382,7 @@ Workspace<Real>::update (Real a1, Real b1, Real area1, Real error1,
 
 /* -------------------------------------------------------------------------- */
 template <class Real>
-int Workspace<Real>::qag(FtnBase<Real>& f, Real a, Real b,
+int Workspace<Real>::qag(const std::function<Real(Real)>& f, Real a, Real b,
 							Real epsabs, Real epsrel, Real& result, Real& abserr)
 {
 	Real area, errsum;

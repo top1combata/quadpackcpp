@@ -10,9 +10,9 @@ typedef double Real;
 
 #define ABS(x) (((x) < Real(0)) ? -(x) : (x))
 
-Real integrand(Real x, Real* alpha)
+Real integrand(Real x, Real alpha)
 {
-	return pow(x, *alpha) * log(1/x);
+	return pow(x, alpha) * log(1/x);
 }
 
 Real exact(Real alpha)
@@ -31,7 +31,7 @@ main(int argc, char** argv)
 	// Set parameters and function class...
 	Real alpha = (argc > 1) ? Real(atof(argv[1])) : Real(1);
 
-	Function<Real, Real> F(integrand, &alpha);
+	std::function<Real(Real)> F = std::bind(&integrand, std::placeholders::_1, alpha);
 
 	// Set default quadrature tolerance from machine epsilon...
 	Real epsabs =  Work.get_eps() * 1e2;
