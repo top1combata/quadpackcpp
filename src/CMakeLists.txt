@@ -1,0 +1,3 @@
+add_library(quadpackcpp INTERFACE)
+
+target_include_directories(quadpackcpp INTERFACE include)
